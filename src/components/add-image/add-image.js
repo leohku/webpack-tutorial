@@ -1,13 +1,17 @@
 import lol from './lol.png';
-import altText from './altText.txt'
+import altText from './altText.txt';
+import './add-image.scss';
 
-function addImage() {
-    const img = document.createElement('img');
-    img.alt = altText;
-    img.width = 300;
-    img.src = lol;
-    const body = document.querySelector('body');
-    body.appendChild(img);
+class AddImage {
+    render() {
+        const img = document.createElement('img');
+        img.alt = altText;
+        img.width = 300;
+        img.src = lol;
+        img.classList.add("add-image");
+        const body = document.querySelector('body');
+        body.appendChild(img);
+    }
 }
 
-export default addImage;
+export default AddImage;
