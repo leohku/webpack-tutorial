@@ -1,73 +1,61 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: './src/kiwi.js',
+    entry: './src/dashboard.js',
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: 'http://localhost:9002/'
+        publicPath: 'http://localhost:9000/',
     },
     mode: 'none',
     optimization: {
         splitChunks: {
             chunks: 'all',
             minSize: 10000,
-            automaticNameDelimiter: '_'
         }
     },
     module: {
         rules: [
             {
                 test: /\.(png|jpg)$/,
-                use: [
-                    'file-loader'
-                ]
+                type: 'asset',
+            },
+            {
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [ '@babel/env' ],
+                    },
+                }
             },
             {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
                 ]
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [ '@babel/env' ],
-                    }
-                }
-            },
-            {
-                test: /\.hbs$/,
-                use: [
-                    'handlebars-loader'
-                ]
             }
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css'
         }),
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: 'kiwi.html',
-            title: 'Kiwi',
-            description: 'Kiwi',
-            template: 'src/page-template.hbs'
+            filename: 'dashboard.html',
+            title: 'Dashboard',
         }),
         new ModuleFederationPlugin({
-            name: 'KiwiApp',
-            filename: 'remoteEntry.js',
-            exposes: {
-                './KiwiPage': './src/components/kiwi-page/kiwi-page.js',
+            name: 'DashboardApp',
+            remotes: {
+                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
+                KiwiApp: 'KiwiApp@http://localhost:9002/remoteEntry.js',
             }
-        }),
+        })
     ]
-};
+}
