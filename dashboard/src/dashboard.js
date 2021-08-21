@@ -1,4 +1,8 @@
+import NavBar from './components/navbar/navbar';
 const url = window.location.pathname;
+
+const navBar = new NavBar();
+navBar.render();
 
 if (url === '/hello-world-page') {
     import('HelloWorldApp/HelloWorldPage').then(HelloWorldPageModule => {
