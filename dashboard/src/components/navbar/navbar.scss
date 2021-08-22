@@ -16,13 +16,13 @@
     display: inline-block;
     padding: 10px;
     font-weight: medium;
-}
 
-.nav-item:first-of-type {
-    padding-left: 20px;
-}
+    a {
+        color: white;
+        text-decoration: none;
+    }
 
-.nav-item a {
-    color: white;
-    text-decoration: none;
+    &:first-of-type {
+        padding-left: 20px;
+    }
 }

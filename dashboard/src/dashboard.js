@@ -17,5 +17,3 @@ if (url === '/hello-world-page') {
         kiwiPage.render();
     });
 };
-
-console.log("Dashboard");
