@@ -8,6 +8,6 @@ class KiwiPage {
         const kiwiImage = new KiwiImage();
         kiwiImage.render();
     }
-};
+}
 
 export default KiwiPage;

@@ -16,4 +16,4 @@ if (url === '/hello-world-page') {
         const kiwiPage = new KiwiPage();
         kiwiPage.render();
     });
-};
+}

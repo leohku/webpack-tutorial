@@ -8,6 +8,6 @@ class HelloWorldPage {
         const helloWorldButton = new HelloWorldButton();
         helloWorldButton.render();
     }
-};
+}
 
 export default HelloWorldPage;
